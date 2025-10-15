@@ -14,9 +14,11 @@ const Home = () => {
                         Hi, I'm <span className="text-blue-600">Syed Umair</span>
                     </h1>
 
-                    <div className="text-xl sm:text-2xl text-gray-600 mt-2 font-medium dark:text-gray-400">
+                    <div className="mt-3 flex justify-center md:justify-start">
                         <Typewriter />
                     </div>
+
+
                     <p className="text-gray-700 dark:text-gray-400 mt-4">
                         I specialize in building modern, scalable, and high-performance web applications.
                         From dynamic websites to responsive UIs, I craft seamless digital experiences

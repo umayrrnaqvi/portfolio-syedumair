@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const words = ['Frontend Web Developer', 'Problem Solver','Passionate about UI/UX' ];
+const words = ['Frontend Web Developer', 'Problem Solver', 'Passionate about UI/UX'];
 
 export default function Typewriter() {
   const [text, setText] = useState('');
@@ -15,15 +15,15 @@ export default function Typewriter() {
 
     const timeout = setTimeout(() => {
       setText((prev) =>
-        isDeleting ? currentWord.substring(0, prev.length - 1) : currentWord.substring(0, prev.length + 1)
+        isDeleting
+          ? currentWord.substring(0, prev.length - 1)
+          : currentWord.substring(0, prev.length + 1)
       );
 
-      // when word is done typing
       if (!isDeleting && text === currentWord) {
-        setTimeout(() => setIsDeleting(true), 1200); // pause before deleting
+        setTimeout(() => setIsDeleting(true), 1200);
       }
 
-      // when word is done deleting
       if (isDeleting && text === '') {
         setIsDeleting(false);
         setWordIndex((prev) => (prev + 1) % words.length);
@@ -34,9 +34,12 @@ export default function Typewriter() {
   }, [text, isDeleting, wordIndex]);
 
   return (
-    <h1 className=" text-4xl font-bold text-gray-600 ">
-      {text}
-      <span className="border-r-2 border-black animate-spin" />
-    </h1>
+    <div className="relative h-10 w-[280px] sm:w-[340px] md:w-[400px] mx-auto overflow-hidden">
+      <h1 className="absolute w-full text-center text-2xl md:text-4xl font-bold text-gray-600 whitespace-nowrap">
+        {text}
+        <span className="border-r-2 border-black animate-pulse ml-1" />
+      </h1>
+    </div>
   );
+
 }

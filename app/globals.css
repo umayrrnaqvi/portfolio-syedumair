@@ -147,6 +147,15 @@ html {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  padding-right: 0 !important;
+}
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

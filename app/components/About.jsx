@@ -75,17 +75,17 @@ const About = () => {
                                     {[
                                         {
                                             title: "Frontend Developer",
-                                            company: "HurTech- Hasilpur | 01/2024 - Present",
+                                            company: "HurTech- Bahawalpur | 01/2024 - Present",
                                             desc: "Developed responsive and high-performance web applications using React.js, Next.js, Tailwind CSS, and JavaScript."
                                         },
                                         {
                                             title: "Frontend Intern",
-                                            company: "HurTech- Hasilpur | 06/2023 - 12/2023",
+                                            company: "HurTech- Bahawalpur | 06/2023 - 12/2023",
                                             desc: "Collaborated with a cross-functional team to develop responsive web applications using HTML, CSS, JavaScript, and Angular/React."
                                         },
                                         {
                                             title: "Frontend Teacher",
-                                            company: "HurTech – Hasilpur | 02/2025 – Present",
+                                            company: "HurTech – Bahawalpur | 02/2025 – Present",
                                             desc: "Taught frontend web development from basics to advanced, covering HTML, CSS, JavaScript, React.js, and Next.js. Guided students through projects, coding best practices, and modern frontend workflows."
                                         }
                                     ].map((job, i) => (
