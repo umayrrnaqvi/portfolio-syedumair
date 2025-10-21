@@ -14,6 +14,7 @@ const Home = () => {
                         Hi, I'm <span className="text-blue-600">Syed Umair</span>
                     </h1>
 
+
                     {/* Typewriter text */}
                     <div className="mt-3 flex justify-center md:justify-start">
                         <div className="text-base sm:text-lg md:text-xl font-medium text-gray-800 dark:text-gray-300 leading-relaxed break-words whitespace-normal max-w-full">
