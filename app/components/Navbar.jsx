@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 import { HiMenu, HiX } from "react-icons/hi";
+import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["home", "about", "skills", "projects", "contact"];
-      const scrollPos = window.scrollY + window.innerHeight / 2; // center point for active section
+      const scrollPos = window.scrollY + window.innerHeight / 2;
 
       for (let section of sections) {
         const el = document.getElementById(section);
@@ -28,7 +29,7 @@ const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // initialize on load
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -43,13 +44,14 @@ const Navbar = () => {
   return (
     <nav className='w-full fixed top-0 z-50 bg-white dark:bg-gray-900 shadow-md'>
       <div className='max-w-7xl mx-auto px-6 py-3 flex items-center justify-between relative'>
+
         {/* Logo */}
         <div className='text-2xl font-bold text-blue-500 dark:text-white'>
           Syed Umair Ali
         </div>
 
         {/* Desktop Menu */}
-        <div className='hidden md:flex gap-4'>
+        <div className='hidden md:flex items-center gap-4'>
           {links.map(link => (
             <a
               key={link.id}
@@ -62,10 +64,19 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+
+          {/* ✅ Theme Toggler on Desktop */}
+          <div className="ml-4">
+            <AnimatedThemeToggler />
+          </div>
         </div>
 
-        {/* Mobile Hamburger */}
-        <div className='md:hidden flex items-center gap-3 relative z-50'>
+        {/* Mobile Section (Menu + Toggler) */}
+        <div className='md:hidden flex items-center gap-4 relative z-50'>
+          {/* ✅ Theme Toggler on Mobile */}
+          <AnimatedThemeToggler />
+
+          {/* Hamburger Icon */}
           <button
             onClick={toggleMenu}
             className='text-2xl text-black dark:text-white cursor-pointer'

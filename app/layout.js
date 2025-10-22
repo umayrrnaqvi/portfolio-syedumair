@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Toaster } from "react-hot-toast";
-
+import { ThemeProvider } from "next-themes"; // ✅ Add this
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,18 +22,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/logo.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-                <Toaster position="top-right" reverseOrder={false} />
-
-        {children}
-        <Footer />
+        {/* ✅ ThemeProvider wraps everything */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          <Toaster position="top-right" reverseOrder={false} />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

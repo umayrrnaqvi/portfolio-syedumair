@@ -84,7 +84,7 @@ const Contact = () => {
       </div>
 
       <div className="max-w-7xl mx-auto py-5 md:px-10 grid md:grid-cols-2 gap-10">
-        <div className="relative rounded-lg overflow-hidden transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl">
+        <div className="relative rounded-lg overflow-hidden transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl m-3">
           <ShineBorder shineColor="blue" />
           <div className="bg-gray-100 rounded-lg p-6 md:p-10 w-full dark:bg-gray-600 dark:text-white">
             <form className="space-y-6">

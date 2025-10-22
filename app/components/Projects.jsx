@@ -46,14 +46,10 @@ export default function Projects() {
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [cardWidth, setCardWidth] = useState(420);
 
-  // ✅ Dynamically update card width based on screen size
+  // ✅ Adjust card width based on screen
   useEffect(() => {
     const updateCardWidth = () => {
-      if (window.innerWidth < 640) {
-        setCardWidth(window.innerWidth * 0.9); // fills ~90% of mobile width
-      } else {
-        setCardWidth(420);
-      }
+      setCardWidth(window.innerWidth < 640 ? window.innerWidth * 0.9 : 420);
     };
     updateCardWidth();
     window.addEventListener("resize", updateCardWidth);
@@ -102,11 +98,14 @@ export default function Projects() {
   }, [currentIndex, projectsWithClones.length]);
 
   return (
-    <div className="bg-gray-100 w-full relative flex justify-center overflow-hidden">
-      <section id="projects" className="px-4 py-16 w-full max-w-7xl mx-auto flex flex-col items-center">
+    <div className="bg-background text-foreground w-full relative flex justify-center overflow-hidden transition-colors duration-500">
+      <section
+        id="projects"
+        className="px-4 py-16 w-full max-w-7xl mx-auto flex flex-col items-center"
+      >
         <h2 className="text-4xl font-bold text-center mb-8">Projects</h2>
 
-        {/* Filter Buttons */}
+        {/* 🔘 Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-10">
           {filters.map((filter) => (
             <button
@@ -118,7 +117,7 @@ export default function Projects() {
               className={`px-4 py-2 rounded-full border text-sm sm:text-base transition ${
                 activeFilter === filter
                   ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-white text-gray-600 border-gray-300 hover:bg-blue-100"
+                  : "bg-card text-foreground border-border hover:bg-blue-100 dark:hover:bg-gray-800"
               }`}
             >
               {filter}
@@ -126,17 +125,17 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Slider Container */}
+        {/* ▶️ Slider */}
         <div className="flex items-center justify-center gap-3 sm:gap-4 w-full">
-          {/* ✅ Hide arrows on mobile */}
+          {/* Left Arrow */}
           <button
             onClick={() => handleScroll("left")}
-            className="hidden sm:flex bg-black text-white p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 flex-shrink-0"
+            className="hidden sm:flex bg-primary text-primary-foreground p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 flex-shrink-0 transition"
           >
             <ChevronLeft size={24} className="sm:w-7 sm:h-7" />
           </button>
 
-          {/* Cards Row */}
+          {/* Cards */}
           <div className="relative overflow-hidden flex-1 w-full sm:w-[1000px]">
             <div
               id="slider-track"
@@ -151,7 +150,7 @@ export default function Projects() {
                   project && (
                     <div
                       key={idx}
-                      className="mx-auto sm:mx-2 bg-white dark:bg-gray-700 rounded-lg shadow-md overflow-hidden flex flex-col sm:p-3 p-2 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
+                      className="mx-auto sm:mx-2 bg-card dark:bg-gray-800 border border-border rounded-lg shadow-md overflow-hidden flex flex-col sm:p-3 p-2 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
                       style={{
                         minWidth: `${cardWidth}px`,
                         maxWidth: `${cardWidth}px`,
@@ -160,13 +159,13 @@ export default function Projects() {
                       <img
                         src={project.image.src}
                         alt={project.title}
-                        className="w-full h-48 sm:h-56 object-cover"
+                        className="w-full h-48 sm:h-56 object-cover rounded-md"
                       />
                       <div className="p-3 flex flex-col justify-between">
-                        <h3 className="text-lg sm:text-xl font-semibold mb-2 dark:text-white text-center">
+                        <h3 className="text-lg sm:text-xl font-semibold mb-2 text-center">
                           {project.title}
                         </h3>
-                        <p className="text-[12px] sm:text-sm text-gray-600 mb-3 dark:text-white leading-relaxed text-center">
+                        <p className="text-[12px] sm:text-sm text-muted-foreground mb-3 leading-relaxed text-center">
                           {project.description}
                         </p>
 
@@ -174,7 +173,7 @@ export default function Projects() {
                           {project.languages.map((lang, index) => (
                             <span
                               key={`${project.id}-${index}`}
-                              className="text-xs bg-gray-200 dark:bg-gray-900 px-2 py-1 rounded-full"
+                              className="text-xs bg-muted dark:bg-gray-900 text-foreground px-2 py-1 rounded-full"
                             >
                               {lang}
                             </span>
@@ -198,10 +197,10 @@ export default function Projects() {
             </div>
           </div>
 
-          {/* ✅ Hide arrows on mobile */}
+          {/* Right Arrow */}
           <button
             onClick={() => handleScroll("right")}
-            className="hidden sm:flex bg-black text-white p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 flex-shrink-0"
+            className="hidden sm:flex bg-primary text-primary-foreground p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 flex-shrink-0 transition"
           >
             <ChevronRight size={24} className="sm:w-7 sm:h-7" />
           </button>
