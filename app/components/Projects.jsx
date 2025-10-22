@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import PorTfolio from "/public/portfolio.png";
 import bistrobliss from "../../public/bistrobliss.png";
 import recoverycircle from "../../public/recoverycircle.png";
+import hurTech from "../../public/hurTech.png"
 import { ChevronLeft, ChevronRight } from "@deemlol/next-icons";
 
 const projectData = [
@@ -36,6 +37,17 @@ const projectData = [
     liveDemo: "https://recoverycircle.org/",
     category: "Web",
   },
+  {
+  id: 4,
+  title: "HurTech LLC Website",
+  description:
+    "A professional corporate website developed for HurTech LLC, showcasing company services, project portfolio, and client solutions with a modern and responsive UI built for performance and SEO.",
+  image: hurTech, 
+  languages: ["Next.js", "React.js", "Tailwind CSS", "JavaScript"],
+  liveDemo: "https://www.hurtechllc.com/",
+  category: "Web",
+},
+
 ];
 
 const filters = ["All", "Web", "Mobile"];
