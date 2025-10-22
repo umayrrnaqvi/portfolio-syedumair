@@ -34,7 +34,7 @@ export default function Typewriter() {
   }, [text, isDeleting, wordIndex]);
 
   return (
-    <div className="relative h-10 w-[280px] sm:w-[340px] md:w-[400px] mx-auto overflow-hidden">
+    <div className="relative h-10 w-[280px] sm:w-[340px] md:w-[435px] mx-auto overflow-hidden">
       <h1 className="absolute w-full text-center text-2xl md:text-4xl font-bold text-gray-600 whitespace-nowrap">
         {text}
         <span className="border-r-2 border-black animate-pulse ml-1" />

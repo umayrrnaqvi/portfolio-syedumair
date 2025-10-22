@@ -6,7 +6,7 @@ import Typewriter from './Typewriter'
 const Home = () => {
     return (
         <section id="home" className="min-h-screen flex items-center justify-center px-6 bg-white dark:bg-black text-black dark:text-white">
-            <div className="flex flex-col-reverse md:flex-row items-center gap-10 max-w-7xl mx-auto">
+            <div className="flex flex-col-reverse md:flex-row items-center gap-10 sm:gap-50 max-w-7xl mx-auto">
 
                 {/* Left Content */}
                 <div className="text-center md:text-left max-w-xl">
@@ -29,7 +29,7 @@ const Home = () => {
                         with clean, efficient, and intuitive designs.
                     </p>
 
-                    <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
+                    <div className="mt-10 flex flex-wrap justify-center md:justify-start gap-4">
                         <a href="#projects" className="bg-blue-600 text-white px-6 py-2 rounded-full shadow hover:scale-105 transition">
                             View Projects
                         </a>
@@ -39,8 +39,8 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="w-52 h-52 sm:w-64 sm:h-64 rounded-md overflow-hidden shadow-lg border-4 border-white dark:border-gray-800 hover:scale-110 duration-500">
-                    <Image src={homeimg} alt="Hamza Profile" className="object-cover w-full h-full cursor-pointer" />
+                <div className="w-65 h-70 sm:w-80 sm:h-90 rounded-md overflow-hidden shadow-lg border-4 border-white dark:border-gray-800 hover:scale-110 duration-500">
+                    <Image src={homeimg} alt="Umair Profile" className="object-cover w-full h-full cursor-pointer" />
                 </div>
             </div>
         </section>
