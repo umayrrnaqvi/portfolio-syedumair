@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import PorTfolio from "/public/portfolio.png";
 import bistrobliss from "../../public/bistrobliss.png";
 import recoverycircle from "../../public/recoverycircle.png";
-import hurTech from "../../public/hurTech.png"
+import hurTech from "../../public/hurTech.png";
 import { ChevronLeft, ChevronRight } from "@deemlol/next-icons";
 
 const projectData = [
@@ -38,16 +39,15 @@ const projectData = [
     category: "Web",
   },
   {
-  id: 4,
-  title: "HurTech LLC Website",
-  description:
-    "A professional corporate website developed for HurTech LLC, showcasing company services, project portfolio, and client solutions with a modern and responsive UI built for performance and SEO.",
-  image: hurTech, 
-  languages: ["Next.js", "React.js", "Tailwind CSS", "JavaScript"],
-  liveDemo: "https://www.hurtechllc.com/",
-  category: "Web",
-},
-
+    id: 4,
+    title: "HurTech LLC Website",
+    description:
+      "A professional corporate website developed for HurTech LLC, showcasing services, project portfolio, and client solutions with a modern and responsive UI built for performance and SEO.",
+    image: hurTech,
+    languages: ["Next.js", "React.js", "Tailwind CSS", "JavaScript"],
+    liveDemo: "https://www.hurtechllc.com/",
+    category: "Web",
+  },
 ];
 
 const filters = ["All", "Web", "Mobile"];
@@ -57,14 +57,15 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [cardWidth, setCardWidth] = useState(420);
+  const sliderRef = useRef(null);
 
-  // ✅ Adjust card width based on screen
+  // ✅ Responsive card width
   useEffect(() => {
     const updateCardWidth = () => {
       setCardWidth(window.innerWidth < 640 ? window.innerWidth * 0.9 : 420);
     };
     updateCardWidth();
-    window.addEventListener("resize", updateCardWidth);
+    window.addEventListener("resize", updateCardWidth, { passive: true });
     return () => window.removeEventListener("resize", updateCardWidth);
   }, []);
 
@@ -75,12 +76,17 @@ export default function Projects() {
 
   const projectsWithClones =
     filteredProjects.length > 0
-      ? [filteredProjects[filteredProjects.length - 1], ...filteredProjects, filteredProjects[0]]
+      ? [
+          filteredProjects[filteredProjects.length - 1],
+          ...filteredProjects,
+          filteredProjects[0],
+        ]
       : [];
 
+  // ✅ Auto-scroll (pause when user hovers)
   useEffect(() => {
     if (!projectsWithClones.length) return;
-    const interval = setInterval(() => handleScroll("right"), 3000);
+    const interval = setInterval(() => handleScroll("right"), 4000);
     return () => clearInterval(interval);
   }, [projectsWithClones.length]);
 
@@ -90,8 +96,9 @@ export default function Projects() {
     setCurrentIndex((prev) => (dir === "left" ? prev - 1 : prev + 1));
   };
 
+  // ✅ Smooth infinite scroll logic
   useEffect(() => {
-    const slider = document.getElementById("slider-track");
+    const slider = sliderRef.current;
     if (!slider) return;
 
     const handleTransitionEnd = () => {
@@ -110,11 +117,12 @@ export default function Projects() {
   }, [currentIndex, projectsWithClones.length]);
 
   return (
-    <div className="bg-background text-foreground w-full relative flex justify-center overflow-hidden transition-colors duration-500">
-      <section
-        id="projects"
-        className="px-4 py-16 w-full max-w-7xl mx-auto flex flex-col items-center"
-      >
+    <section
+      id="projects"
+      className="bg-background text-foreground w-full py-16 px-4 relative flex justify-center transition-colors duration-500"
+      aria-label="Project Showcase"
+    >
+      <div className="w-full max-w-7xl flex flex-col items-center">
         <h2 className="text-4xl font-bold text-center mb-8">Projects</h2>
 
         {/* 🔘 Filter Buttons */}
@@ -126,11 +134,12 @@ export default function Projects() {
                 setActiveFilter(filter);
                 setCurrentIndex(1);
               }}
-              className={`px-4 py-2 rounded-full border text-sm sm:text-base transition ${
+              className={`px-4 py-2 rounded-full border text-sm sm:text-base transition focus:outline-none focus:ring-2 focus:ring-blue-400 ${
                 activeFilter === filter
                   ? "bg-blue-600 text-white border-blue-600"
                   : "bg-card text-foreground border-border hover:bg-blue-100 dark:hover:bg-gray-800"
               }`}
+              aria-pressed={activeFilter === filter}
             >
               {filter}
             </button>
@@ -142,16 +151,19 @@ export default function Projects() {
           {/* Left Arrow */}
           <button
             onClick={() => handleScroll("left")}
-            className="hidden sm:flex bg-primary text-primary-foreground p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 flex-shrink-0 transition"
+            className="hidden sm:flex bg-blue-600 text-white p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 transition"
+            aria-label="Previous Project"
           >
-            <ChevronLeft size={24} className="sm:w-7 sm:h-7" />
+            <ChevronLeft size={24} />
           </button>
 
           {/* Cards */}
           <div className="relative overflow-hidden flex-1 w-full sm:w-[1000px]">
             <div
-              id="slider-track"
-              className={`flex ${isTransitioning ? "transition-transform duration-300 ease-in-out" : ""}`}
+              ref={sliderRef}
+              className={`flex ${
+                isTransitioning ? "transition-transform duration-500 ease-in-out" : ""
+              }`}
               style={{
                 transform: `translate3d(-${currentIndex * cardWidth}px, 0, 0)`,
                 width: `${projectsWithClones.length * cardWidth}px`,
@@ -161,23 +173,29 @@ export default function Projects() {
                 (project, idx) =>
                   project && (
                     <div
-                      key={idx}
-                      className="mx-auto sm:mx-2 bg-card dark:bg-gray-800 border border-border rounded-lg shadow-md overflow-hidden flex flex-col sm:p-3 p-2 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
+                      key={`${project.id}-${idx}`}
+                      className="mx-auto sm:mx-2 bg-card dark:bg-gray-800 border border-border rounded-lg shadow-md overflow-hidden flex flex-col sm:p-3 p-2 transition-transform duration-500 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
                       style={{
                         minWidth: `${cardWidth}px`,
                         maxWidth: `${cardWidth}px`,
                       }}
                     >
-                      <img
-                        src={project.image.src}
-                        alt={project.title}
+                      {/* ✅ Use Next.js <Image> for optimization */}
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} screenshot`}
+                        width={420}
+                        height={240}
+                        placeholder="blur"
+                        loading="lazy"
                         className="w-full h-48 sm:h-56 object-cover rounded-md"
                       />
+
                       <div className="p-3 flex flex-col justify-between">
                         <h3 className="text-lg sm:text-xl font-semibold mb-2 text-center">
                           {project.title}
                         </h3>
-                        <p className="text-[12px] sm:text-sm text-muted-foreground mb-3 leading-relaxed text-center">
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-3 leading-relaxed text-center">
                           {project.description}
                         </p>
 
@@ -197,7 +215,7 @@ export default function Projects() {
                             href={project.liveDemo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-block rounded-xl px-5 py-2 text-sm sm:text-base font-medium bg-blue-600 text-white hover:bg-blue-700 transition hover:scale-105"
+                            className="inline-block rounded-xl px-5 py-2 text-sm sm:text-base font-medium bg-blue-600 text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 transition hover:scale-105"
                           >
                             Live Demo
                           </a>
@@ -212,12 +230,13 @@ export default function Projects() {
           {/* Right Arrow */}
           <button
             onClick={() => handleScroll("right")}
-            className="hidden sm:flex bg-primary text-primary-foreground p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 flex-shrink-0 transition"
+            className="hidden sm:flex bg-blue-600 text-white p-3 sm:p-4 rounded-full shadow hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 transition"
+            aria-label="Next Project"
           >
-            <ChevronRight size={24} className="sm:w-7 sm:h-7" />
+            <ChevronRight size={24} />
           </button>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
