@@ -1,5 +1,5 @@
-"use client";
-import React, { useState, useEffect } from "react";
+'use client'
+import React, { useState, useEffect } from 'react';
 import { HiMenu, HiX } from "react-icons/hi";
 import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler";
 
@@ -7,9 +7,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const toggleMenu = () => setIsOpen(!isOpen);
 
-  // ✅ Update active link on scroll for better UX
+  // Update active link on scroll
   useEffect(() => {
     const handleScroll = () => {
       const sections = ["home", "about", "skills", "projects", "contact"];
@@ -28,7 +28,7 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -42,33 +42,22 @@ const Navbar = () => {
   ];
 
   return (
-    <nav
-      className="w-full fixed top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md"
-      role="navigation"
-      aria-label="Main Navigation"
-    >
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between relative">
-        {/* ✅ Logo */}
-        <a
-          href="#home"
-          className="text-2xl font-bold text-blue-500 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md"
-          aria-label="Go to Home section"
-        >
-          Syed Umair Ali
-        </a>
+    <nav className='w-full fixed top-0 z-50 bg-white dark:bg-gray-900 shadow-md'>
+      <div className='max-w-7xl mx-auto px-6 py-3 flex items-center justify-between relative'>
 
-        {/* ✅ Desktop Menu */}
-        <div className="hidden md:flex items-center gap-4">
-          {links.map((link) => (
+        {/* Logo */}
+        <div className='text-2xl font-bold text-blue-500 dark:text-white'>
+          Syed Umair Ali
+        </div>
+
+        {/* Desktop Menu */}
+        <div className='hidden md:flex items-center gap-4'>
+          {links.map(link => (
             <a
               key={link.id}
               href={link.href}
-              className={`px-4 py-2 rounded-full text-lg font-medium transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400
-                ${
-                  activeSection === link.id
-                    ? "bg-blue-500 text-white"
-                    : "text-[#26282b] dark:text-gray-100"
-                }
+              className={`px-4 py-2 rounded-full text-lg font-normal transition hover:scale-105
+                ${activeSection === link.id ? "bg-blue-500 text-white" : "text-[#26282b] dark:text-white"}
               `}
               onClick={() => setActiveSection(link.id)}
             >
@@ -76,34 +65,34 @@ const Navbar = () => {
             </a>
           ))}
 
-          {/* ✅ Theme Toggler (Desktop) */}
+          {/* ✅ Theme Toggler on Desktop */}
           <div className="ml-4">
-            <AnimatedThemeToggler aria-label="Toggle Theme" />
+            <AnimatedThemeToggler />
           </div>
         </div>
 
-        {/* ✅ Mobile Controls */}
-        <div className="md:hidden flex items-center gap-4 z-50">
-          <AnimatedThemeToggler aria-label="Toggle Theme" />
+        {/* Mobile Section (Menu + Toggler) */}
+        <div className='md:hidden flex items-center gap-4 relative z-50'>
+          {/* ✅ Theme Toggler on Mobile */}
+          <AnimatedThemeToggler />
+
+          {/* Hamburger Icon */}
           <button
             onClick={toggleMenu}
-            className="text-3xl text-black dark:text-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            className='text-2xl text-black dark:text-white cursor-pointer'
           >
             {isOpen ? <HiX /> : <HiMenu />}
           </button>
         </div>
       </div>
 
-      {/* ✅ Mobile Menu */}
+      {/* Mobile Menu */}
       <div
-        className={`md:hidden w-full bg-white dark:bg-gray-900 transition-all duration-300 overflow-hidden ${
-          isOpen ? "max-h-[500px] py-4" : "max-h-0"
-        }`}
-        aria-hidden={!isOpen}
+        className={`md:hidden w-full bg-white dark:bg-gray-900 transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[500px] py-4' : 'max-h-0'
+          }`}
       >
-        <div className="flex flex-col gap-4 text-lg text-[#26282b] dark:text-gray-100 px-6">
-          {links.map((link) => (
+        <div className='flex flex-col gap-4 text-lg text-[#26282b] dark:text-white px-6'>
+          {links.map(link => (
             <a
               key={link.id}
               href={link.href}
@@ -111,12 +100,8 @@ const Navbar = () => {
                 toggleMenu();
                 setActiveSection(link.id);
               }}
-              className={`px-4 py-2 rounded-full transition hover:text-blue-500 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400
-                ${
-                  activeSection === link.id
-                    ? "bg-blue-500 text-white"
-                    : "text-inherit"
-                }
+              className={`px-4 py-2 rounded-full transition hover:text-blue-500 hover:scale-105
+                ${activeSection === link.id ? "bg-blue-500 text-white" : ""}
               `}
             >
               {link.name}
