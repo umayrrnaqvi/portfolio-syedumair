@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/homeimg.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
