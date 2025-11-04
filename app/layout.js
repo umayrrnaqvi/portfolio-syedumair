@@ -42,7 +42,7 @@ export const metadata = {
     siteName: "Syed Umair Portfolio",
     images: [
       {
-        url: "https://syedumair.vercel.app/logo.png", // ✅ full absolute URL!
+        url: "https://syedumair.vercel.app/homeimg.png", // ✅ full absolute URL!
         width: 1200,
         height: 630,
         alt: "Syed Umair Portfolio Preview",
@@ -56,7 +56,7 @@ export const metadata = {
     title: "Syed Umair | Frontend Developer Portfolio",
     description:
       "Hi, Syed Umair, a passionate web developer with expertise in Next.js and React.",
-    images: ["https://syedumair.vercel.app/logo.png"],
+    images: ["https://syedumair.vercel.app/homeimg.png"],
   },
 };
 
