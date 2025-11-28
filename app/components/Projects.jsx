@@ -5,6 +5,7 @@ import PorTfolio from "/public/portfolio.png";
 import bistrobliss from "../../public/bistrobliss.png";
 import recoverycircle from "../../public/recoverycircle.png";
 import hurTech from "../../public/hurTech.png";
+import signaturePunjab from "../../public/signature.png"
 import { ChevronLeft, ChevronRight } from "@deemlol/next-icons";
 
 const projectData = [
@@ -48,6 +49,16 @@ const projectData = [
     liveDemo: "https://www.hurtechllc.com/",
     category: "Web",
   },
+  {
+    id: 5,
+    title: "Signature Punjab Land",
+    description:
+      "A real estate platform for Signature Punjab Land showcasing properties, features, and services with a modern, responsive design for better user experience and SEO.",
+    image: signaturePunjab, // Make sure to import or define this image
+    languages: ["Next.js", "React.js", "Tailwind CSS", "JavaScript"],
+    liveDemo: "https://signature.punjabland.ca/",
+    category: "Web",
+  },
 ];
 
 const filters = ["All", "Web", "Mobile"];
@@ -77,10 +88,10 @@ export default function Projects() {
   const projectsWithClones =
     filteredProjects.length > 0
       ? [
-          filteredProjects[filteredProjects.length - 1],
-          ...filteredProjects,
-          filteredProjects[0],
-        ]
+        filteredProjects[filteredProjects.length - 1],
+        ...filteredProjects,
+        filteredProjects[0],
+      ]
       : [];
 
   // ✅ Auto-scroll (pause when user hovers)
@@ -134,11 +145,10 @@ export default function Projects() {
                 setActiveFilter(filter);
                 setCurrentIndex(1);
               }}
-              className={`px-4 py-2 rounded-full border text-sm sm:text-base transition focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-                activeFilter === filter
+              className={`px-4 py-2 rounded-full border text-sm sm:text-base transition focus:outline-none focus:ring-2 focus:ring-blue-400 ${activeFilter === filter
                   ? "bg-blue-600 text-white border-blue-600"
                   : "bg-card text-foreground border-border hover:bg-blue-100 dark:hover:bg-gray-800"
-              }`}
+                }`}
               aria-pressed={activeFilter === filter}
             >
               {filter}
@@ -161,9 +171,8 @@ export default function Projects() {
           <div className="relative overflow-hidden flex-1 w-full sm:w-[1000px]">
             <div
               ref={sliderRef}
-              className={`flex ${
-                isTransitioning ? "transition-transform duration-500 ease-in-out" : ""
-              }`}
+              className={`flex ${isTransitioning ? "transition-transform duration-500 ease-in-out" : ""
+                }`}
               style={{
                 transform: `translate3d(-${currentIndex * cardWidth}px, 0, 0)`,
                 width: `${projectsWithClones.length * cardWidth}px`,
